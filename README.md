@@ -15,13 +15,13 @@ This repository contains the backend implementation for the Expatswap User Manag
 1. Clone the repository:
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/Chandrasura25/Expatswap-Backend
     ```
 
 2. Install dependencies:
 
     ```bash
-    cd expatswap-user-management-backend
+    cd expatswap-backend
     npm install
     ```
 
