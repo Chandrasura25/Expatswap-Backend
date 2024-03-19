@@ -1,60 +1,108 @@
-# Node.js Backend Project
+# Expatswap User Management Backend
 
-This is a Node.js backend project that serves as the server-side application for FullStack Developer Test. It provides APIs for authentication, user management, and other functionalities required by the client-side application.
+This repository contains the backend implementation for the Expatswap User Management Module. It provides RESTful APIs for user creation, fetching, and pagination, with data persistence in a MongoDB database.
 
-## Getting Started
+## Technologies Used
 
-To get started with this project, follow these steps:
+- Node.js: JavaScript runtime environment
+- Express.js: Web application framework for Node.js
+- MongoDB: NoSQL database for storing user data
+- Mongoose: MongoDB object modeling for Node.js
+- bcrypt.js: Library for hashing passwords
 
-1. **Clone the repository**: Clone this repository to your local machine using Git.
+## Setup
 
-   ```bash
-   git clone https://github.com/Chandrasura25/Full-Stack-Developer-test-backend
-   ```
+1. Clone the repository:
 
-2. **Install dependencies**: Navigate to the project directory and install the dependencies using npm or yarn.
+    ```bash
+    git clone <repository-url>
+    ```
 
-   ```bash
-   cd node-backend
-   npm install
-   # or
-   yarn install
-   ```
+2. Install dependencies:
 
-3. **Set up environment variables**: Create a `.env` file in the root directory of the project and add the required environment variables. You can use the provided `.env.example` file as a template.
+    ```bash
+    cd expatswap-user-management-backend
+    npm install
+    ```
 
-4. **Start the server**: Run the Node.js server to start the application.
+3. Set up environment variables:
 
-   ```bash
-   npm start
-   # or
-   yarn start
-   ```
+    Create a `.env` file in the root directory and define the following variables:
 
-   By default, the server will start on port 3000. You can configure the port by setting the `PORT` environment variable in the `.env` file.
+    ```plaintext
+    PORT=
+    MONGODB_URI=<mongodb-connection-string>
+    ```
 
-## Features
+4. Start the server:
 
-- **User Authentication**: Provides endpoints for user authentication using JSON Web Tokens (JWT).
-- **User Management**: Allows users to register, login, and view their profile information.
-- **API Endpoints**: Defines various API endpoints for interacting with the application.
+    ```bash
+    npm start
+    ```
 
-## Folder Structure
+The server should now be running on the specified port.
 
+## API Endpoints
 
-node-backend/
-├── controllers/         # Controller functions for handling requests and responses
-├── models/              # Data models and schemas
-├── routes/              # Route definitions for API endpoints
-├── utils/               # Utility functions, middleware, etc.
-├── .env.example         # Example environment variables file
-├── index.js             # Main entry point of the application
-└── package.json         # Dependencies and scripts configuration
+### User Creation
 
-## Contributing
+- **URL:** `/api/users`
+- **Method:** POST
+- **Request Body:**
 
-Contributions are welcome! If you'd like to contribute to this project, feel free to fork the repository and submit a pull request.
+    ```json
+    {
+        "firstName": "John",
+        "lastName": "Doe",
+        "phoneNumber": "1234567890",
+        "email": "john.doe@example.com",
+        "password": "password123",
+        "dateOfBirth": "1990-01-01"
+    }
+    ```
+
+- **Response:**
+
+    - 201 Created: User created successfully
+    - 400 Bad Request: Invalid request body or validation errors
+
+### Fetch Users
+
+- **URL:** `/api/users`
+- **Method:** GET
+- **Query Parameters:**
+    - `page`: Page number (default: 1)
+    - `limit`: Number of users per page (default: 10)
+    - `from`: Start date of birth range (optional)
+    - `to`: End date of birth range (optional)
+
+- **Response:**
+
+    ```json
+    {
+        "users": [
+            {
+                "_id": "12345",
+                "firstName": "John",
+                "lastName": "Doe",
+                "phoneNumber": "1234567890",
+                "email": "john.doe@example.com",
+                "dateOfBirth": "1990-01-01"
+            },
+            ...
+        ],
+        "totalUsers": 25,
+        "currentPage": 1,
+        "totalPages": 3
+    }
+    ```
+
+## Security Considerations
+
+- Ensured to sanitize and validate user inputs to prevent injection attacks.
+- Hash passwords using bcrypt.js before storing them in the database.
+- Implemented rate limiting and authentication mechanisms for secure access to APIs.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

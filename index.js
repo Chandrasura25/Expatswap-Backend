@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json()); // Handles JSON requests effectively
 app.use(bodyParser.urlencoded({extended:true}));
 // Routes
-app.use("/user", userRoutes);
+app.use("/api", userRoutes);
 
 (async () => {
   try {
