@@ -17,7 +17,7 @@ exports.createUser = async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
       phone_number: req.body.phone_number,
-      date_of_birth: req.body.date_of_birth
+      date_of_birth: req.body.dob
     });
 
     await user.save();
